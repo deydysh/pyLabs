@@ -11,4 +11,4 @@ def function1_1(x, y, z):
 x = float(input())
 y = float(input())
 z = float(input())
-print(function1_1(x, y, z))
+print("{:.2e}".format(function1_1(x, y, z)))

@@ -16,4 +16,4 @@ def function1_2(x):
 
 
 x = float(input())
-print(function1_2(x))
+print("{:.2e}".format(function1_2(x)))

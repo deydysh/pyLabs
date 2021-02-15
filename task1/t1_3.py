@@ -14,4 +14,4 @@ def function1_3(n, m):
 
 n = int(input())
 m = int(input())
-print(function1_3(n, m))
+print("{:.2e}".format(function1_3(n, m)))
