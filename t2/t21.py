@@ -30,5 +30,5 @@ def f21(x):
             return 11
 
 
-# print(f21([1977, 'e', 'fancy', 'rexx']))
-# print(f21([1977, 'e', 'grace', 'sage']))
+print(f21([1977, 'e', 'fancy', 'rexx']))
+print(f21([1977, 'e', 'grace', 'sage']))

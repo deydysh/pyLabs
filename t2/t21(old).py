@@ -39,8 +39,8 @@ def f21(x):
         return 8
 
 
-# for i in range(len(t21)):
-#     if f21(t21[i][0]) == t21[i][1]:
-#         print(f"Тест {i} пройден [{f21(t21[i][0])}]")
-#     else:
-#         print(f"Ошибка в тесте {i}")
+for i in range(len(t21)):
+    if f21(t21[i][0]) == t21[i][1]:
+        print(f"Тест {i} пройден [{f21(t21[i][0])}]")
+    else:
+        print(f"Ошибка в тесте {i}")
