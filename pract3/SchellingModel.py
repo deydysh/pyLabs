@@ -43,9 +43,10 @@ class Agent:
         return num_same_type >= require_same_type
 
     def update_location(self, agents):
-        # self.set_location()
-        while not self.is_happy(agents):
+        if not self.is_happy(agents):
             self.set_location()
+        # while not self.is_happy(agents):
+        #     self.set_location()
 
 
 def plot_distribution(agents, cycle_num):
