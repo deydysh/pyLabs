@@ -25,10 +25,9 @@ def bwt_decoding(s, index):
         lst.sort()
         for j in range(len(lst)):
             lst[j] = s[j] + lst[j]
-            print(lst)
+            # print(lst)
     lst.sort()
     return lst[index]
-
 
 
 print(bwt_coding('ABACABA'))

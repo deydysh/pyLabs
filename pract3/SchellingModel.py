@@ -21,7 +21,8 @@ class Agent:
         while flag:  # Пока не найдем свободное место
             i, j = randint(0, grid_size - 1), randint(0, grid_size - 1)  # Генерируем случайную пару чисел
             if grid[i][j] == 0:  # Нашли пустое место
-                grid[i][j] = self  # Добавляем агента на сетку
+                # grid[i][j] = self  # Добавляем агента на сетку
+                grid[i][j] = self.type  # Добавляем тип агента на сетку
                 self.location = i, j  # Кортеж с локацией агента на сетке
                 flag = False
 
@@ -70,7 +71,7 @@ def plot_distribution(agents, cycle_num):
 
 
 # Main #
-num_neighbours = 10  # Число близжайших агентов, которые считаются соседями
+num_neighbours = 10  # Число ближайших агентов, которые считаются соседями
 
 print("Введите пороговую толерантность в %")
 tolerance = int(input())
