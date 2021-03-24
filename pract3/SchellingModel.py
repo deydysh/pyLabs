@@ -1,5 +1,6 @@
 from random import randint
 import matplotlib.pyplot as plt
+import matplotlib.animation as anime
 
 
 class Agent:
@@ -50,35 +51,6 @@ class Agent:
         #     self.set_location()
 
 
-def plot_distribution(agents, cycle_num):
-    x_values_1, y_values_1 = [], []
-    x_values_2, y_values_2 = [], []
-    happy, unhappy = 0, 0
-    for agent in agents:
-        if agent.is_happy(agents):
-            happy += 1
-        else:
-            unhappy += 1
-        x, y = agent.location
-        if agent.type == 1:
-            x_values_1.append(x)
-            y_values_1.append(y)
-        if agent.type == 2:
-            x_values_2.append(x)
-            y_values_2.append(y)
-    fig, axes = plt.subplots(nrows=1, ncols=2)
-    plot_args = {'markersize': 10, 'alpha': 0.6}
-    axes[0].set_facecolor('azure')
-    axes[1].set_facecolor('azure')
-    axes[0].plot(x_values_1, y_values_1, 'o', markerfacecolor='blue', **plot_args)
-    axes[0].plot(x_values_2, y_values_2, 'o', markerfacecolor='red', **plot_args)
-    axes[0].set_title('Распределение агентов', fontsize=12)
-    axes[1].set_title('Диаграмма счастья', fontsize=12)
-    fig.suptitle(f'Цикл {cycle_num}', fontsize=16)
-    axes[1].pie([happy, unhappy], labels=['Happy', 'Unhappy'])
-    plt.show()
-
-
 # Main #
 num_neighbours = 10  # Число ближайших агентов, которые считаются соседями
 
@@ -111,10 +83,40 @@ agents = [Agent(1) for i in range(f_population)]  # Добавляем на се
 for i in range(s_population):  # Второй группы
     agents.append(Agent(2))
 
-count = 0  #
-while count != num_steps:
-    plot_distribution(agents, count)
+fig, axes = plt.subplots(nrows=1, ncols=2)
+plot_args = {'markersize': 10, 'alpha': 0.6}
+
+
+def update(t):
+    axes[0].clear()
+    axes[1].clear()
+    x_values_1, y_values_1 = [], []
+    x_values_2, y_values_2 = [], []
+    happy, unhappy = 0, 0
+    for agent in agents:
+        if agent.is_happy(agents):
+            happy += 1
+        else:
+            unhappy += 1
+        x, y = agent.location
+        if agent.type == 1:
+            x_values_1.append(x)
+            y_values_1.append(y)
+        if agent.type == 2:
+            x_values_2.append(x)
+            y_values_2.append(y)
+    axes[0].set_facecolor('azure')
+    axes[1].set_facecolor('azure')
+    axes[0].set_title('Распределение агентов', fontsize=12)
+    axes[1].set_title('Диаграмма счастья', fontsize=12)
+    axes[0].plot(x_values_1, y_values_1, 'o', markerfacecolor='blue', **plot_args)
+    axes[0].plot(x_values_2, y_values_2, 'o', markerfacecolor='red', **plot_args)
+    # fig.suptitle(f'Цикл {t+1}', fontsize=16)
+    axes[1].pie([happy, unhappy], labels=['Happy', 'Unhappy'])
     for agent in agents:
         agent.update_location(agents)
-    count += 1
 
+
+ani = anime.FuncAnimation(fig, func=update, frames=num_steps, repeat=False, interval=2000)
+plt.show()
+# ani.save('animation.gif', fps=30)
