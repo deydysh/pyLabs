@@ -111,12 +111,10 @@ agents = [Agent(1) for i in range(f_population)]  # Добавляем на се
 for i in range(s_population):  # Второй группы
     agents.append(Agent(2))
 
-
-def update(t):
-    count = 0  #
-    while count != num_steps:
-        plot_distribution(agents, count)
-        for agent in agents:
-            agent.update_location(agents)
-        count += 1
+count = 0  #
+while count != num_steps:
+    plot_distribution(agents, count)
+    for agent in agents:
+        agent.update_location(agents)
+    count += 1
 
