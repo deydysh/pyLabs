@@ -53,7 +53,12 @@ class Agent:
 def plot_distribution(agents, cycle_num):
     x_values_1, y_values_1 = [], []
     x_values_2, y_values_2 = [], []
+    happy, unhappy = 0, 0
     for agent in agents:
+        if agent.is_happy(agents):
+            happy += 1
+        else:
+            unhappy += 1
         x, y = agent.location
         if agent.type == 1:
             x_values_1.append(x)
@@ -61,12 +66,16 @@ def plot_distribution(agents, cycle_num):
         if agent.type == 2:
             x_values_2.append(x)
             y_values_2.append(y)
-    fig, ax = plt.subplots()
+    fig, axes = plt.subplots(nrows=1, ncols=2)
     plot_args = {'markersize': 10, 'alpha': 0.6}
-    ax.set_facecolor('azure')
-    ax.plot(x_values_1, y_values_1, 'o', markerfacecolor='blue', **plot_args)
-    ax.plot(x_values_2, y_values_2, 'o', markerfacecolor='red', **plot_args)
-    ax.set_title(f'Cycle {cycle_num}')
+    axes[0].set_facecolor('azure')
+    axes[1].set_facecolor('azure')
+    axes[0].plot(x_values_1, y_values_1, 'o', markerfacecolor='blue', **plot_args)
+    axes[0].plot(x_values_2, y_values_2, 'o', markerfacecolor='red', **plot_args)
+    axes[0].set_title('Распределение агентов', fontsize=12)
+    axes[1].set_title('Диаграмма счастья', fontsize=12)
+    fig.suptitle(f'Цикл {cycle_num}', fontsize=16)
+    axes[1].pie([happy, unhappy], labels=['Happy', 'Unhappy'])
     plt.show()
 
 
@@ -102,10 +111,12 @@ agents = [Agent(1) for i in range(f_population)]  # Добавляем на се
 for i in range(s_population):  # Второй группы
     agents.append(Agent(2))
 
-count = 0  #
-while count != num_steps:
-    plot_distribution(agents, count)
-    for agent in agents:
-        agent.update_location(agents)
-    count += 1
+
+def update(t):
+    count = 0  #
+    while count != num_steps:
+        plot_distribution(agents, count)
+        for agent in agents:
+            agent.update_location(agents)
+        count += 1
 
